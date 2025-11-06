@@ -134,6 +134,8 @@ func main() {
 	// 根据交易哈希获取交易详情和是否处于待处理状态
 	tx, isPending, err := client.TransactionByHash(context.Background(), txHash)
 
+	print(tx.Hash().Hex())
+
 	if err != nil {
 		log.Fatal(err)
 	}
