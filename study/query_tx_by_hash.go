@@ -10,8 +10,9 @@ import (
 	"github.com/ethereum/go-ethereum/ethclient"
 )
 
+// 查询交易
 func main() {
-	client, err := ethclient.Dial("https://eth-sepolia.g.alchemy.com/v2/qLVks-ioeg_c5r6FDc8VT")
+	client, err := ethclient.Dial("https://eth-sepolia.g.alchemy.com/v2/xxxxxxxx")
 	if err != nil {
 		log.Fatal(err)
 	}

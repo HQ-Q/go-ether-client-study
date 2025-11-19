@@ -10,10 +10,10 @@ import (
 	"github.com/ethereum/go-ethereum/rpc"       // 支持通过RPC调用传递块号或块哈希
 )
 
-// main 函数是程序入口点，演示如何获取特定区块的交易收据
+// 查询区块交易收据
 func main() {
 	// 使用 Alchemy 提供的 Sepolia 测试网络端点创建一个以太坊客户端连接
-	client, err := ethclient.Dial("https://eth-sepolia.g.alchemy.com/v2/qLVks-ioeg_c5r6FDc8VT")
+	client, err := ethclient.Dial("https://eth-sepolia.g.alchemy.com/v2/xxxxxxxx")
 	if err != nil {
 		log.Fatal(err) // 如果建立连接失败，则记录错误并退出程序
 	}

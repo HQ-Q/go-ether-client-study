@@ -13,10 +13,10 @@ import (
 	"github.com/ethereum/go-ethereum/ethclient"  // 以太坊客户端库
 )
 
-// 主函数，程序入口点
+// 查询交易
 func main() {
 	// 连接到以太坊Sepolia测试网络的Alchemy节点
-	client, err := ethclient.Dial("https://eth-sepolia.g.alchemy.com/v2/qLVks-ioeg_c5r6FDc8VT")
+	client, err := ethclient.Dial("https://eth-sepolia.g.alchemy.com/v2/xxxxxxxx")
 	//client, err := ethclient.Dial("http://localhost:8545") // 备用的本地节点连接（已注释）
 
 	// 检查连接是否出错，如果出错则记录错误并终止程序
