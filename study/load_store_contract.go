@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"eth-client-study/study/store"
+	"eth-client-study/utils"
 	"log"
 	"math/big"
 
@@ -33,7 +34,7 @@ func main() {
 	}
 	log.Println("合约版本:", version)
 	//私钥
-	privateKey, err := crypto.HexToECDSA("xxxxxxxx")
+	privateKey, err := crypto.HexToECDSA(utils.GetEnv("PRIVATE_KEY1"))
 	transactOpts, err := bind.NewKeyedTransactorWithChainID(privateKey, big.NewInt(11155111))
 	if err != nil {
 		log.Fatal(err)

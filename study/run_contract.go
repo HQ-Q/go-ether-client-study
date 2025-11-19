@@ -4,6 +4,7 @@ import (
 	"context"
 	"crypto/ecdsa"
 	"eth-client-study/study/store"
+	"eth-client-study/utils"
 	"fmt"
 	"log"
 	"math/big"
@@ -30,7 +31,7 @@ func runSetItemsByAbi() {
 		log.Fatal(err)
 	}
 	defer client.Close()
-	privateKey, err := crypto.HexToECDSA("xxxxxxxx")
+	privateKey, err := crypto.HexToECDSA(utils.GetEnv("PRIVATE_KEY1"))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -116,7 +117,7 @@ func runSetItemsNoUseAbi() {
 		log.Fatal(err)
 	}
 	defer client.Close()
-	privateKey, err := crypto.HexToECDSA("xxxxxxxx")
+	privateKey, err := crypto.HexToECDSA(utils.GetEnv("PRIVATE_KEY1"))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -225,7 +226,7 @@ func runSetItems() {
 	log.Println("version:", version)
 
 	//私钥
-	privateKey, err := crypto.HexToECDSA("xxxxxxxx")
+	privateKey, err := crypto.HexToECDSA(utils.GetEnv("PRIVATE_KEY1"))
 	if err != nil {
 		log.Fatal(err)
 	}

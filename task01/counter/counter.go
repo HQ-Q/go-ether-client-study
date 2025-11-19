@@ -31,8 +31,8 @@ var (
 
 // CounterMetaData contains all meta data concerning the Counter contract.
 var CounterMetaData = &bind.MetaData{
-	ABI: "[{\"inputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[],\"name\":\"count\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"decrement\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getCount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"increment\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]",
-	Bin: "0x6080604052348015600e575f5ffd5b505f5f819055506101d9806100225f395ff3fe608060405234801561000f575f5ffd5b506004361061004a575f3560e01c806306661abd1461004e5780632baeceb71461006c578063a87d942c14610076578063d09de08a14610094575b5f5ffd5b61005661009e565b60405161006391906100f7565b60405180910390f35b6100746100a3565b005b61007e6100bd565b60405161008b91906100f7565b60405180910390f35b61009c6100c5565b005b5f5481565b60015f5f8282546100b4919061013d565b92505081905550565b5f5f54905090565b60015f5f8282546100d69190610170565b92505081905550565b5f819050919050565b6100f1816100df565b82525050565b5f60208201905061010a5f8301846100e8565b92915050565b7f4e487b71000000000000000000000000000000000000000000000000000000005f52601160045260245ffd5b5f610147826100df565b9150610152836100df565b925082820390508181111561016a57610169610110565b5b92915050565b5f61017a826100df565b9150610185836100df565b925082820190508082111561019d5761019c610110565b5b9291505056fea2646970667358221220dc93c3f0384d7c95c7d83d189e60c2a45b794c4e30e0470042767a266aab5d6b64736f6c634300081e0033",
+	ABI: "[{\"inputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"newCount\",\"type\":\"uint256\"}],\"name\":\"CountChanged\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"count\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"decrement\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getCount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"increment\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]",
+	Bin: "0x6080604052348015600e575f5ffd5b505f5f81905550610249806100225f395ff3fe608060405234801561000f575f5ffd5b506004361061004a575f3560e01c806306661abd1461004e5780632baeceb71461006c578063a87d942c14610076578063d09de08a14610094575b5f5ffd5b61005661009e565b6040516100639190610167565b60405180910390f35b6100746100a3565b005b61007e6100f5565b60405161008b9190610167565b60405180910390f35b61009c6100fd565b005b5f5481565b60015f5f8282546100b491906101ad565b925050819055507f0ef4482aceb854636f33f9cd319f9e1cd6fe3aa2e60523f3583c287b893824455f546040516100eb9190610167565b60405180910390a1565b5f5f54905090565b60015f5f82825461010e91906101e0565b925050819055507f0ef4482aceb854636f33f9cd319f9e1cd6fe3aa2e60523f3583c287b893824455f546040516101459190610167565b60405180910390a1565b5f819050919050565b6101618161014f565b82525050565b5f60208201905061017a5f830184610158565b92915050565b7f4e487b71000000000000000000000000000000000000000000000000000000005f52601160045260245ffd5b5f6101b78261014f565b91506101c28361014f565b92508282039050818111156101da576101d9610180565b5b92915050565b5f6101ea8261014f565b91506101f58361014f565b925082820190508082111561020d5761020c610180565b5b9291505056fea2646970667358221220a45258b8299ff732ca6fa6e26993112c8153f301406124271961dc00483b754c64736f6c634300081e0033",
 }
 
 // CounterABI is the input ABI used to generate the binding from.
@@ -304,4 +304,138 @@ func (_Counter *CounterSession) Increment() (*types.Transaction, error) {
 // Solidity: function increment() returns()
 func (_Counter *CounterTransactorSession) Increment() (*types.Transaction, error) {
 	return _Counter.Contract.Increment(&_Counter.TransactOpts)
+}
+
+// CounterCountChangedIterator is returned from FilterCountChanged and is used to iterate over the raw logs and unpacked data for CountChanged events raised by the Counter contract.
+type CounterCountChangedIterator struct {
+	Event *CounterCountChanged // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *CounterCountChangedIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(CounterCountChanged)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(CounterCountChanged)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *CounterCountChangedIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *CounterCountChangedIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// CounterCountChanged represents a CountChanged event raised by the Counter contract.
+type CounterCountChanged struct {
+	NewCount *big.Int
+	Raw      types.Log // Blockchain specific contextual infos
+}
+
+// FilterCountChanged is a free log retrieval operation binding the contract event 0x0ef4482aceb854636f33f9cd319f9e1cd6fe3aa2e60523f3583c287b89382445.
+//
+// Solidity: event CountChanged(uint256 newCount)
+func (_Counter *CounterFilterer) FilterCountChanged(opts *bind.FilterOpts) (*CounterCountChangedIterator, error) {
+
+	logs, sub, err := _Counter.contract.FilterLogs(opts, "CountChanged")
+	if err != nil {
+		return nil, err
+	}
+	return &CounterCountChangedIterator{contract: _Counter.contract, event: "CountChanged", logs: logs, sub: sub}, nil
+}
+
+// WatchCountChanged is a free log subscription operation binding the contract event 0x0ef4482aceb854636f33f9cd319f9e1cd6fe3aa2e60523f3583c287b89382445.
+//
+// Solidity: event CountChanged(uint256 newCount)
+func (_Counter *CounterFilterer) WatchCountChanged(opts *bind.WatchOpts, sink chan<- *CounterCountChanged) (event.Subscription, error) {
+
+	logs, sub, err := _Counter.contract.WatchLogs(opts, "CountChanged")
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(CounterCountChanged)
+				if err := _Counter.contract.UnpackLog(event, "CountChanged", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseCountChanged is a log parse operation binding the contract event 0x0ef4482aceb854636f33f9cd319f9e1cd6fe3aa2e60523f3583c287b89382445.
+//
+// Solidity: event CountChanged(uint256 newCount)
+func (_Counter *CounterFilterer) ParseCountChanged(log types.Log) (*CounterCountChanged, error) {
+	event := new(CounterCountChanged)
+	if err := _Counter.contract.UnpackLog(event, "CountChanged", log); err != nil {
+		return nil, err
+	}
+	event.Raw = log
+	return event, nil
 }

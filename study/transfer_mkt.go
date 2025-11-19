@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"crypto/ecdsa"
+	"eth-client-study/utils"
 	"fmt"
 	"log"
 	"math/big"
@@ -25,7 +26,7 @@ func main() {
 	}
 	defer client.Close()
 	//账户私钥
-	privateKey, err := crypto.HexToECDSA("xxxxxxxx")
+	privateKey, err := crypto.HexToECDSA(utils.GetEnv("PRIVATE_KEY1"))
 	if err != nil {
 		log.Fatal("privateKey err:", err)
 	}

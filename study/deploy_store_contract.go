@@ -5,6 +5,7 @@ import (
 	"crypto/ecdsa"
 	"encoding/hex"
 	"eth-client-study/study/store"
+	"eth-client-study/utils"
 	"fmt"
 	"log"
 	"math/big"
@@ -34,7 +35,7 @@ func deployByAbi() {
 	defer client.Close()
 
 	//账户私钥
-	privateKey, err := crypto.HexToECDSA("xxxxxxxx")
+	privateKey, err := crypto.HexToECDSA(utils.GetEnv("PRIVATE_KEY1"))
 	if err != nil {
 		log.Fatal("privateKey err:", err)
 	}
@@ -81,12 +82,12 @@ func deployByAbi() {
 }
 
 func deployStoreByByteCode() {
-	client, err := ethclient.Dial("https://eth-sepolia.g.alchemy.com/v2/xxxxxxxx")
+	client, err := ethclient.Dial("https://eth-sepolia.g.alchemy.com/v2/qLVks-ioeg_c5r6FDc8VT")
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer client.Close()
-	privateKey, err := crypto.HexToECDSA("xxxxxxxx")
+	privateKey, err := crypto.HexToECDSA(utils.GetEnv("PRIVATE_KEY1"))
 	if err != nil {
 		log.Fatal("privateKey err:", err)
 	}
